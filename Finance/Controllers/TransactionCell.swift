@@ -10,9 +10,35 @@ import UIKit
 final class TransactionCell: UICollectionViewCell {
     static let reuseIdentifier = "Cell"
     
-    var date = UILabel()
-    var amount = UILabel()
-    var category = UILabel()
+    lazy var date: UILabel = {
+        let date = UILabel()
+        date.font = .systemFont(ofSize: 14, weight: .regular)
+        date.textAlignment = .left
+        date.textColor = .mainText
+        date.translatesAutoresizingMaskIntoConstraints = false
+        
+        return date
+    }()
+    
+    lazy var amount: UILabel = {
+        let amount = UILabel()
+        amount.font = .systemFont(ofSize: 16, weight: .bold)
+        amount.textAlignment = .right
+        amount.textColor = .expenseSum
+        amount.translatesAutoresizingMaskIntoConstraints = false
+        
+        return amount
+    }()
+    
+    lazy var category: UILabel = {
+        let category = UILabel()
+        category.font = .systemFont(ofSize: 14, weight: .light)
+        category.textAlignment = .left
+        category.textColor = .mainText
+        category.translatesAutoresizingMaskIntoConstraints = false
+        
+        return category
+    }()
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -21,26 +47,15 @@ final class TransactionCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        date.font = .systemFont(ofSize: 14, weight: .regular)
-        date.textAlignment = .left
-        date.textColor = .white
-        date.backgroundColor = .clear
-        date.translatesAutoresizingMaskIntoConstraints = false
-        
-        category.font = .systemFont(ofSize: 14, weight: .light)
-        category.textAlignment = .left
-        category.textColor = .white
-        category.backgroundColor = .clear
-        category.translatesAutoresizingMaskIntoConstraints = false
-        
-        amount.font = .systemFont(ofSize: 16, weight: .bold)
-        amount.textAlignment = .right
-        amount.textColor = .orange
-        amount.backgroundColor = .clear
-        amount.translatesAutoresizingMaskIntoConstraints = false
-        
         let hStack: UIStackView = {
-            let stack = UIStackView(arrangedSubviews: [date, category, amount])
+            let vStack = UIStackView(arrangedSubviews: [date, category])
+            vStack.translatesAutoresizingMaskIntoConstraints = false
+            vStack.axis = .vertical
+            vStack.distribution = .equalSpacing
+            vStack.spacing = 4
+            vStack.alignment = .leading
+            let stack = UIStackView(arrangedSubviews: [vStack, amount])
+            
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.axis = .horizontal
             stack.distribution = .equalSpacing
@@ -55,9 +70,8 @@ final class TransactionCell: UICollectionViewCell {
             hStack.topAnchor.constraint(equalTo: contentView.topAnchor),
             hStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             hStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            hStack.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8),
             hStack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            hStack.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 20),
-            hStack.trailingAnchor.constraint(greaterThanOrEqualToSystemSpacingAfter: contentView.trailingAnchor, multiplier: -20),
             ])
     }
 }

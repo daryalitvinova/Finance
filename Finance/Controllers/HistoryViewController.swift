@@ -8,8 +8,11 @@
 import UIKit
 
 class HistoryViewController: UIViewController {
-    
     private lazy var transactions = ExpenseManager.shared.getAll()
+//    
+//    private lazy var dateLabel: UILabel! = {
+//        
+//    }()
     
     private lazy var historyCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,7 +25,6 @@ class HistoryViewController: UIViewController {
         collectionView.register(TransactionCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .clear
         
         return collectionView
     }()
